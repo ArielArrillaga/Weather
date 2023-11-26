@@ -72,10 +72,33 @@ public class DaoCitiesImpl implements IDaoCities {
             log.error("DaoCitiesImpl: getCode: No existe "+city+" en la base de datos. error: "+e);
         } 
         catch(Exception e) {
-            log.info("DaoCitiesImpl: getCode: error: Algo salio mal, no se obtuvieron los registros. Motivo: " + e);
+            log.error("DaoCitiesImpl: getCode: error: Algo salio mal, no se obtuvieron los registros. Motivo: " + e);
         }
         return "";
 	}
 
+
+	
+    /**
+     * Este metodo existe solo a fines de poder realizar pruebas manuales para vaciar la tabla y volver a completarla con loadCities
+     * @return int deleteRows
+     */
+    @Override
+	public int cleanTable() {
+    	String query = "Delete FROM CITIES";
+        log.info("DaoCitiesImpl: cleanTable: query: " + query);
+        
+        try {
+            
+            int deleteRows = jdbcTemplate.update(query);
+            log.info("DaoCitiesImpl: cleanTable: Se eliminaron "+deleteRows+" filas.");
+
+            return deleteRows;
+        }
+        catch(Exception e) { 
+            log.error("DaoCitiesImpl: getCode: error: Algo salio mal, no se obtuvieron los registros. Motivo: " + e);
+            return -1;
+        }
+	}
     
 }

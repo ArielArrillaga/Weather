@@ -8,4 +8,5 @@ import ar.com.tdm.weather.exceptions.CustomException;
 public interface IDaoCities {
 	public int bulkInsertCities (ArrayList<City> cities);
 	public String getCode (String city) throws CustomException;
+	public int cleanTable();
 }

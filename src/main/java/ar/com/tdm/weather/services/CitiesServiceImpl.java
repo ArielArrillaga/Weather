@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ar.com.tdm.weather.dao.IDaoCities;
+import ar.com.tdm.weather.entities.Response;
 import ar.com.tdm.weather.entities.cities.AvailableCities;
 import ar.com.tdm.weather.entities.dataApi.CitiesResponse;
 import ar.com.tdm.weather.exceptions.CustomException;
@@ -48,6 +49,30 @@ public class CitiesServiceImpl implements ICitiesService {
 		log.info("CitiesServiceImpl: loadCities: Mapeo de clases realizado exitosamente");
 
 		return response;
+	}
+
+	/**
+	 * Este metodo llama al dao que vacia la tabla cities
+	 * @return {@link Response}
+	 * @throws CustomException 
+	 */
+	@Override
+	public Response cleanTable() throws CustomException {
+		log.info("CitiesServiceImpl: cleanTable: Inicio limpieza de la base de datos");
+		Response response = new Response();
+		 int deletedRows = this.daoCities.cleanTable();
+		 
+		 if (deletedRows<0) {
+			 throw new CustomException(500, "La tabla no pudo se vaciada.");
+		 }
+		 if (deletedRows>0) {
+			 response.setMensaje("Tabla vaciada exitosamente");
+			 return response;
+		 }
+		 
+		 response.setMensaje("No se elimino ningun dato. Revise si la tabla contiene datos para borrar.");
+		 return response;
+		 
 	}
 
 }
