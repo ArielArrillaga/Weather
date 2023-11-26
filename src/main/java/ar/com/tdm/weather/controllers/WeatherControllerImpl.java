@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import ar.com.tdm.weather.entities.cities.AvailableCities;
 import ar.com.tdm.weather.entities.weather.TemperatureResponse;
 import ar.com.tdm.weather.exceptions.CustomException;
 import ar.com.tdm.weather.services.IWeatherService;
