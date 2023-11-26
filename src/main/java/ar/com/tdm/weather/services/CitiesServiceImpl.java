@@ -1,8 +1,11 @@
 package ar.com.tdm.weather.services;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ar.com.tdm.weather.dao.IDaoCities;
 import ar.com.tdm.weather.entities.cities.AvailableCities;
 import ar.com.tdm.weather.entities.dataApi.CitiesResponse;
 import ar.com.tdm.weather.exceptions.CustomException;
@@ -11,15 +14,35 @@ import ar.com.tdm.weather.services.apis.IWeatherDataApi;
 @Service
 public class CitiesServiceImpl implements ICitiesService {
 
+	private final Logger log = LoggerFactory.getLogger(CitiesServiceImpl.class);
+
 	@Autowired
 	IWeatherDataApi serviceApi;
 	
+	@Autowired
+	IDaoCities daoCities;
+	
 	@Override
 	public AvailableCities loadCities() throws CustomException {
-		//este metodo tiene que llamar a un servicio que se encargue de conectarse a accuweather, este debera tener una interfaz generica pensando en un posible cambio de proveedor
+		log.info("CitiesServiceImpl: loadCities: Inicio, se obtendran las ciudades para almacenarlas en la DB");
+		AvailableCities response = new AvailableCities();
+		
 		CitiesResponse cities = serviceApi.getTopCities(50);
-		System.out.println(cities);
-		return null;
+		log.info("CitiesServiceImpl: loadCities: Ciudades obtenidas desde la api");
+
+		int insertedRows = daoCities.bulkInsertCities(cities.getCities());
+		
+		if (insertedRows<0) {
+			throw new CustomException(500, "No fue posible insertar los datos en la base de datos");
+		}
+		log.info("CitiesServiceImpl: loadCities: Insercion de datos en la DB realizado correctamente");
+
+		response.mapCities(cities);
+		response.setMensaje("Estas son las ciudades disponibles en la base de datos");
+		
+		log.info("CitiesServiceImpl: loadCities: Mapeo de clases realizado exitosamente");
+
+		return response;
 	}
 
 }

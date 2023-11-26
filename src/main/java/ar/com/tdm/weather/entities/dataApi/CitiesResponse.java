@@ -1,20 +1,12 @@
 package ar.com.tdm.weather.entities.dataApi;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ar.com.tdm.weather.entities.cities.City;
 import ar.com.tdm.weather.exceptions.CustomException;

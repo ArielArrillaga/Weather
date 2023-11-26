@@ -1,7 +1,9 @@
 package ar.com.tdm.weather.entities.cities;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
+import ar.com.tdm.weather.entities.dataApi.CitiesResponse;
 import lombok.Data;
 
 /**
@@ -22,4 +24,15 @@ public class AvailableCities {
 	public ArrayList<String> getCities(){
 		return new ArrayList<String>(cities);
 	}
+	
+	/**
+	 * Convierte un CitiesRespons en un arrayList con los nombres de las ciudades
+	 * @param citiesResponse
+	 */
+	public void mapCities(CitiesResponse citiesResponse) {
+        this.cities = citiesResponse.getCities().stream()
+                .map(City::getName)
+                .collect(Collectors.toCollection(ArrayList::new));
+
+    }
 }

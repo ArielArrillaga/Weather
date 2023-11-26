@@ -3,7 +3,6 @@ package ar.com.tdm.weather.services.apis;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +25,11 @@ public class AccuWeatherApi implements IWeatherDataApi {
     private String key;
 	
 	@Override
+	/**
+	 * Este metodo se encarga de obtener las ciudades "top", solo se debe indicar la cantidad de ciudades deseadas
+	 * @Param citiesNumber (int)
+	 * @Return {@link CitiesResponse}
+	 */
 	public CitiesResponse getTopCities(int citiesNumber) throws CustomException {
 		CitiesResponse response = new CitiesResponse();
 		if (citiesNumber!=50 && citiesNumber!=100 && citiesNumber!=150 ) {
