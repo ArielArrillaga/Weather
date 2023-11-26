@@ -1,9 +1,12 @@
 package ar.com.tdm.weather.controllers;
 
+import org.springframework.http.ResponseEntity;
+
+import ar.com.tdm.weather.entities.cities.AvailableCities;
 
 public interface CitiesController {
 
-    public Boolean loadCities();
+    public ResponseEntity<AvailableCities> loadCities();
 	
 
 
