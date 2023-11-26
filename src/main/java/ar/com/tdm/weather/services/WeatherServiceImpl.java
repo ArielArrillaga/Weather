@@ -3,7 +3,6 @@ package ar.com.tdm.weather.services;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import ar.com.tdm.weather.dao.IDaoCities;
@@ -30,14 +29,19 @@ public class WeatherServiceImpl implements IWeatherService {
 	@Override
 	public TemperatureResponse getTodayWeather(String city) throws CustomException {
 		log.info("WeatherServiceImpl: getTodayWeather: Inicio, obteniendo datos para la ciudad: "+city);
-
-		String code = daoCities.getCode(city);
+		TemperatureResponse response = new TemperatureResponse();
+		
+		String code = daoCities.getCode(city.toLowerCase().trim());
 		
 		if(code.equals("")) {
 			throw new CustomException(404, "La ciudad ingresada no pertenece al grupo top 50");
 		}
-
-		return null;
+		
+		log.info("WeatherServiceImpl: getTodayWeather: Código de ciudad: "+code);
+		
+		response = serviceApi.getTodayWeather(code);
+		
+		return response;
 	}
 
 }

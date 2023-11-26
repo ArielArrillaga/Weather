@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import ar.com.tdm.weather.entities.dataApi.CitiesResponse;
+import ar.com.tdm.weather.entities.weather.TemperatureResponse;
 import ar.com.tdm.weather.exceptions.CustomException;
 import ar.com.tdm.weather.utils.CallHttp;
 
@@ -20,6 +21,9 @@ public class AccuWeatherApi implements IWeatherDataApi {
 
     @Value("${url.accuWeather.topCities}")
     private String urlTopCities;
+    
+    @Value("${url.accuWeather.todayWeather}")
+    private String urlTodayWeather;
 	
 	@Value("${accuWeather.key}")
     private String key;
@@ -42,7 +46,7 @@ public class AccuWeatherApi implements IWeatherDataApi {
 			url = new URL(urlTopCities + citiesNumber + key);
 		} catch (MalformedURLException e) {
 			log.error("AccuWeatherApi: getTopCities: La url no tiene un formato valido: error: " +e + " url: "+url);
-			throw new CustomException(500,"Error interno al formar lla url para conectarce con la api accuWeather");
+			throw new CustomException(500,"Error interno al formar la url para conectarce con la api accuWeather");
 		}
 		
 		try {
@@ -53,11 +57,45 @@ public class AccuWeatherApi implements IWeatherDataApi {
 				response.setMensaje("Ciudades obtenidas Exitosamente");	
 				return response;
 			}else {
-				log.info("AccuWeatherApi: getTopCities: La cconsulte devolvio un arreglo vacio o nulo.");
+				log.info("AccuWeatherApi: getTopCities: La consulta devolvio un arreglo vacio o nulo.");
 				throw new CustomException(204,"Respuesta de la api inesperada.");
 			}
 		} catch (IOException e) {
 			log.error("AccuWeatherApi: getTopCities: Ocurio un error al realizar el llamado: error: " +e + " url: "+url);
+			throw new CustomException(500,"Error interno al conectarce con la api accuWeather");
+		}
+	}
+
+	
+	/**
+	 * Este metodo se encarga de obtener los datos del clima para una determinada ciudad
+	 * @param city (String)
+	 * @return {@link TemperatureResponse}
+	 */
+	@Override
+	public TemperatureResponse getTodayWeather(String code) throws CustomException {
+		TemperatureResponse response = new TemperatureResponse();
+		URL url = null;
+		try {
+			url = new URL(urlTodayWeather + code + key);
+		} catch (MalformedURLException e) {
+			log.error("AccuWeatherApi: getTodayWeather: La url no tiene un formato valido: error: " +e + " url: "+url);
+			throw new CustomException(500,"Error interno al formar la url para conectarce con la api accuWeather");
+		}
+		
+		try {
+			String resultado = CallHttp.llamadoHttpGet(url);
+			if (resultado != null && !resultado.isEmpty()) {
+				response.parseWeatherInfo(resultado);
+				log.info("AccuWeatherApi: getTodayWeather: Datos recuperados exitosamente.");
+				response.setMensaje("Datos del clima obtenidos Exitosamente");	
+				return response;
+			}else {
+				log.info("AccuWeatherApi: getTodayWeather: La consulta devolvio un arreglo vacio o nulo.");
+				throw new CustomException(204,"Respuesta de la api inesperada.");
+			}
+		} catch (IOException e) {
+			log.error("AccuWeatherApi: getTodayWeather: Ocurio un error al realizar el llamado: error: " +e + " url: "+url);
 			throw new CustomException(500,"Error interno al conectarce con la api accuWeather");
 		}
 	}
