@@ -38,22 +38,24 @@ public class AccuWeatherApi implements IWeatherDataApi {
 			url = new URL(urlTopCities + citiesNumber + key);
 		} catch (MalformedURLException e) {
 			log.error("AccuWeatherApi: getTopCities: La url no tiene un formato valido: error: " +e + " url: "+url);
-			throw new CustomException(500,"Error interno al conectarce con la api accuWeather");
+			throw new CustomException(500,"Error interno al formar lla url para conectarce con la api accuWeather");
 		}
 		
 		try {
 			String resultado = CallHttp.llamadoHttpGet(url);
-			System.out.println("prueba");
+			if (resultado != null && !resultado.isEmpty()) {
+				response.parseCityInfo(resultado);
+				log.info("AccuWeatherApi: getTopCities: Ciudades recuperadas exitosamente.");
+				response.setMensaje("Ciudades obtenidas Exitosamente");	
+				return response;
+			}else {
+				log.info("AccuWeatherApi: getTopCities: La cconsulte devolvio un arreglo vacio o nulo.");
+				throw new CustomException(204,"Respuesta de la api inesperada.");
+			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("AccuWeatherApi: getTopCities: Ocurio un error al realizar el llamado: error: " +e + " url: "+url);
+			throw new CustomException(500,"Error interno al conectarce con la api accuWeather");
 		}
-		
-		
-		
-		
-//urltopcities + 50 + key
-		return null;
 	}
 
 }

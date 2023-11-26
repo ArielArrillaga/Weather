@@ -13,4 +13,9 @@ import lombok.Data;
 public class City {
 	private String name;
 	private String code;
+	
+	public City (String name, String code) {
+		this.name=name;
+		this.code=code;
+	}
 }
