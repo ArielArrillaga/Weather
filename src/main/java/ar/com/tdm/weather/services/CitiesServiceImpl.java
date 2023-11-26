@@ -22,12 +22,17 @@ public class CitiesServiceImpl implements ICitiesService {
 	@Autowired
 	IDaoCities daoCities;
 	
+	/**
+	 * Este metodo cumple la funcion de mediar entre las distintas partes que hacen al servicio.
+	 * Obtiene los datos desde la Api, los carga en la db y devuelve los nombres de las ciudades obtenidas.
+	 * @return {@link AvailableCities}
+	 */
 	@Override
 	public AvailableCities loadCities() throws CustomException {
 		log.info("CitiesServiceImpl: loadCities: Inicio, se obtendran las ciudades para almacenarlas en la DB");
 		AvailableCities response = new AvailableCities();
 		
-		CitiesResponse cities = serviceApi.getTopCities(50);
+		CitiesResponse cities = serviceApi.getTopCities(50); //para este ejemplo solo dejo que se obtengan 50 ciudades
 		log.info("CitiesServiceImpl: loadCities: Ciudades obtenidas desde la api");
 
 		int insertedRows = daoCities.bulkInsertCities(cities.getCities());

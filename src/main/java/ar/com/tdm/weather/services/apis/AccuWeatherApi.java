@@ -24,12 +24,12 @@ public class AccuWeatherApi implements IWeatherDataApi {
 	@Value("${accuWeather.key}")
     private String key;
 	
-	@Override
 	/**
 	 * Este metodo se encarga de obtener las ciudades "top", solo se debe indicar la cantidad de ciudades deseadas
 	 * @Param citiesNumber (int)
 	 * @Return {@link CitiesResponse}
 	 */
+	@Override
 	public CitiesResponse getTopCities(int citiesNumber) throws CustomException {
 		CitiesResponse response = new CitiesResponse();
 		if (citiesNumber!=50 && citiesNumber!=100 && citiesNumber!=150 ) {

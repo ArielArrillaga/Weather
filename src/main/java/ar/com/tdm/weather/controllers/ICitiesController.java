@@ -4,7 +4,7 @@ import org.springframework.http.ResponseEntity;
 
 import ar.com.tdm.weather.entities.cities.AvailableCities;
 
-public interface CitiesController {
+public interface ICitiesController {
 
     public ResponseEntity<AvailableCities> loadCities();
 	

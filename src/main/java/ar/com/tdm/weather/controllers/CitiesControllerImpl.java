@@ -17,11 +17,11 @@ import ar.com.tdm.weather.services.ICitiesService;
 
 
 @RestController
-@RequestMapping(path = "/weather")
+@RequestMapping(path = "/city")
 @CrossOrigin(allowCredentials = "true", origins = "*", allowedHeaders = "*", methods = { RequestMethod.GET,
 		RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT, RequestMethod.OPTIONS, RequestMethod.PATCH,
 		RequestMethod.HEAD })
-public class CitiesControllerImpl implements CitiesController {
+public class CitiesControllerImpl implements ICitiesController {
 	
 	private final Logger log = LoggerFactory.getLogger(CitiesControllerImpl.class);
 

@@ -12,10 +12,11 @@ import ar.com.tdm.weather.entities.cities.City;
 import ar.com.tdm.weather.exceptions.CustomException;
 import lombok.Data;
 
-@Data
+
 /**
  * Respuesta para la interfaz que devuelve las ciudades obtenidas desde la coneccion a la api de un 3ro
  */
+@Data
 public class CitiesResponse {
 	private String mensaje;
 	private ArrayList<City> cities;
@@ -31,6 +32,11 @@ public class CitiesResponse {
 		return new ArrayList<City>(cities);
 	}
 	
+	/**
+	 * Se encarga de mapear los datos de respuesta de la api a los requeridos por la clase
+	 * @param jsonString
+	 * @throws CustomException
+	 */
 	public void parseCityInfo(String jsonString) throws CustomException {
 		try {  
 			JSONArray jsonArray = new JSONArray(jsonString);
