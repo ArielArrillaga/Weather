@@ -30,8 +30,8 @@ public class DaoCitiesImpl implements IDaoCities {
         int[][] affectedRows =  null;
         try {
         	affectedRows = jdbcTemplate.batchUpdate(sql, cities, cities.size(), (ps, city) -> {
-                ps.setString(1, city.getName());
-                ps.setString(2, city.getCode());
+                ps.setString(1, city.getName().toLowerCase().trim());
+                ps.setString(2, city.getCode().trim());
             });
         }catch(Exception e) {
         	log.error("DaoCitiesImpl: bulkInsertCities: Algo salio mal al realizar la insercion de datos: "+e);
