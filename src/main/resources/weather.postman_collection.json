@@ -1,0 +1,75 @@
+{
+	"info": {
+		"_postman_id": "d20f93dc-45c6-47bf-bab9-a982cecb94e6",
+		"name": "weather",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "loadCities",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8088/city/loadCities",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"city",
+						"loadCities"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getTodayweather",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8088/weather/getTodayWeather?city=Kinshasa",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"weather",
+						"getTodayWeather"
+					],
+					"query": [
+						{
+							"key": "city",
+							"value": "Kinshasa"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cleanTable",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8088/city/cleanTable",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"city",
+						"cleanTable"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
