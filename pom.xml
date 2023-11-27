@@ -49,42 +49,10 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-rest</artifactId>
 		</dependency>
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.springframework.boot</groupId> -->
-<!-- 			<artifactId>spring-boot-starter-security</artifactId> -->
-<!-- 		</dependency> -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>2.6</version>
-		</dependency>
-		<dependency>
-			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt</artifactId>
-			<version>0.9.0</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-codec</groupId>
-			<artifactId>commons-codec</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.modelmapper</groupId>
-			<artifactId>modelmapper</artifactId>
-			<version>${modelmapper.version}</version>
-		</dependency>
-		<dependency>
-		    <groupId>org.jboss</groupId>
-		    <artifactId>jboss-vfs</artifactId>
-		    <version>3.2.14.Final</version>
 		</dependency>
 		<dependency>
             <groupId>org.projectlombok</groupId>
@@ -109,18 +77,23 @@
 		    <version>20160810</version>
 		</dependency>
 		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-		</dependency>
-		<dependency>
 	        <groupId>com.h2database</groupId>
 	        <artifactId>h2</artifactId>
 	        <version>1.4.200</version> 
 	        <scope>runtime</scope>
 	    </dependency>
+	    <dependency>
+	        <groupId>org.junit.jupiter</groupId>
+	        <artifactId>junit-jupiter-api</artifactId>
+	        <scope>test</scope>
+	    </dependency>
+	    <dependency>
+	        <groupId>org.junit.jupiter</groupId>
+	        <artifactId>junit-jupiter-engine</artifactId>
+	        <scope>test</scope>
+	    </dependency>
 	</dependencies>
 	<build>
-		<!-- Cambio el nombre para poder deployar en un tomcat -->
 		<finalName>${project.name}</finalName>
 		<resources>
 			<resource>

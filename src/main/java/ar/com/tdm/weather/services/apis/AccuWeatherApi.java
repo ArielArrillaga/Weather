@@ -75,6 +75,11 @@ public class AccuWeatherApi implements IWeatherDataApi {
 	@Override
 	public TemperatureResponse getTodayWeather(String code) throws CustomException {
 		TemperatureResponse response = new TemperatureResponse();
+		if(code==null || code.equals("") ) {
+			log.error("AccuWeatherApi: getTodayWeather: El codigo ingresado no es valido.");
+			response.setMensaje("Error, El codigo ingresado no es valido.");
+			return response;
+		}
 		URL url = null;
 		try {
 			url = new URL(urlTodayWeather + code + key);
