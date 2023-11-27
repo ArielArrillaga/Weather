@@ -58,7 +58,7 @@ public class DaoCitiesImpl implements IDaoCities {
      */
     @Override
 	public String getCode(String city)  {
-    	String query = "SELECT code FROM CITIES WHERE name = ?";
+    	String query = "SELECT top 1 code FROM CITIES WHERE name = ?";
         log.info("DaoCitiesImpl: getCode: query: " + query);
         
         try {
